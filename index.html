@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Digital + Botão Sol/Lua</title>
+
+    <!-- Importando a fonte digital estilo relógio -->
+    <link href="https://fonts.cdnfonts.com/css/ds-digital" rel="stylesheet">
+
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'DS-Digital', sans-serif;
+            /* Fonte de relógio digital */
+        }
+
+        /* Estilização do corpo */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f5f5f5;
+            transition: background 0.5s ease-in-out;
+        }
+
+        /* Contêiner principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Estilo do relógio */
+        #clock {
+            font-size: 90px;
+            font-weight: bold;
+            color: #222;
+            text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estilização do botão toggle */
+        .toggle-container {
+            position: relative;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(180deg, #ddd, #bbb);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        /* Ícones do Sol e Lua */
+        .icon {
+            font-size: 20px;
+            color: white;
+        }
+
+        /* Botão deslizante */
+        .toggle-button {
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Modo escuro */
+        body.dark {
+            background: #222;
+        }
+
+        /* Ajuste do relógio no modo escuro */
+        body.dark #clock {
+            color: #ecea5f;
+            /* Cor da fonte */
+        }
+
+        /* Ajuste do botão no modo escuro */
+        body.dark .toggle-container {
+            background: linear-gradient(180deg, #333, #555);
+        }
+
+        /* Mudar a posição do botão no modo escuro */
+        body.dark .toggle-button {
+            transform: translateX(40px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contêiner Principal -->
+    <div class="container">
+        <!-- Relógio Digital -->
+        <div id="clock">00:00:00</div>
+
+        <!-- Botão Toggle -->
+        <div class="toggle-container" onclick="toggleTheme()">
+            <span class="icon">🌞</span> <!-- Ícone Sol -->
+            <div class="toggle-button"></div> <!-- Botão que desliza -->
+            <span class="icon">🌙</span> <!-- Ícone Lua -->
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+
+            document.getElementById("clock").innerText = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle("dark");
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+</body>
+
+</html>
